@@ -1,0 +1,34 @@
+# Estado GHZ en la app
+
+## Definición
+
+Para $n \ge 2$ qubits, el estado **GHZ** es la superposición equiprobable de “todo ceros” y “todo unos”:
+
+$$
+\lvert \mathrm{GHZ}_n \rangle
+  = \frac{1}{\sqrt{2}}\Bigl( \lvert 0 \rangle^{\otimes n} + \lvert 1 \rangle^{\otimes n} \Bigr).
+$$
+
+El espacio de Hilbert tiene dimensión $\dim = 2^n$, así que hay **hasta** $2^n$ resultados distintos al medir en la base computacional — aunque en el caso ideal solo dos tienen probabilidad no nula.
+
+## Circuito que usa la aplicación
+
+1. Aplicar $H$ al qubit $0$.
+2. Encadenar $\mathrm{CNOT}$: control $0 \to$ target $1$, luego $1 \to 2$, etc.
+
+Para $n$ qubit el histograma **ideal** solo debería mostrar las etiquetas “todo 0” y “todo 1” (en la convención de bits que use Qiskit), cada una con frecuencia cercana a $1/2$.
+
+## Histograma con muchas etiquetas
+
+Si subes $n$, el número de *posibles* cadenas de bits crece como $2^n$. En simulación ideal casi toda la masa sigue en dos picos; con ruido o con otros backends (futuro) pueden aparecer más barras. Por eso en la interfaz el histograma puede requerir **desplazamiento horizontal**: no es un error, es el tamaño del espacio de resultados.
+
+## En esta pantalla
+
+Abre **[GHZ State](/experiments/ghz-state)**:
+
+- Elige **número de qubits** dentro del rango permitido y ejecuta con varios *shots*.
+- Comprueba cómo escalan la longitud de las etiquetas y las métricas de profundidad/contéo de puertas.
+
+---
+
+[Fundamentos](/learn/fundamentos) · [Bell](/learn/bell) · [Índice](/learn)

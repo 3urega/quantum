@@ -1,0 +1,49 @@
+# Fundamentos para leer los resultados en la app
+
+## Nivel de rigor
+
+Aquí no demostramos todo desde cero: asumimos que los estados cuánticos como vectores en espacios complejos y las mediciones te resultan familiares. El objetivo es **vincular** esos objetos con lo que muestra la interfaz.
+
+## Estados y normalización
+
+Un estado puro se representa como un ket normalizado $\lvert \psi \rangle \in \mathbb{C}^d$ con
+
+$$
+\langle \psi \vert \psi \rangle = 1.
+$$
+
+En la app, el *motor* construye el circuito y el simulador produce **muestras** de la distribución de medida; no ves el vector $\lvert \psi \rangle$ en bruto, pero las frecuencias del histograma lo **estiman**.
+
+## Medida en la base computacional
+
+Para $n$ qubits, la base computacional está indexada por cadenas de bits
+
+$$
+k \in \{0,1\}^n,
+$$
+
+identificadas con kets $\lvert k \rangle$. Si el estado antes de la medida es $\lvert \psi \rangle$, la probabilidad de observar el resultado $k$ es
+
+$$
+P(k) = \bigl\lvert \langle k \vert \psi \rangle \bigr\rvert^2.
+$$
+
+**Teorema (regla de Born, caso proyectivo básico):** en una medida proyectiva en la base ortonormal $\{\lvert i \rangle\}$, la probabilidad del resultado $\lvert i \rangle$ es $\lvert \langle i \vert \psi \rangle \rvert^2$.
+
+## ¿Qué es un *shot*?
+
+Un **shot** es una realización independiente del experimento aleatorio “preparar $\lvert \psi \rangle$, medir en la base computacional”. Si pides $N$ shots, el conteo del histograma para la etiqueta $k$ es
+
+$$
+n_k \approx N \, P(k),
+$$
+
+salvo fluctuaciones estadísticas (más visibles si $N$ no es grande).
+
+## En esta pantalla (_histograma de la app_)
+
+Cuando ejecutes un experimento en **Quantum Ops Lab**, cada barra del histograma es un conteo $n_k$ acumulado a partir de esas muestras; la altura relativa refleja tu estimación de $P(k)$.
+
+---
+
+Siguiente: [Estado de Bell](/learn/bell) · [GHZ](/learn/ghz) · [Volver al índice](/learn)

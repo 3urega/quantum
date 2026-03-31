@@ -1,0 +1,19 @@
+{
+  "name": "quantum-ops",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @quantum-ops/web",
+    "dev:web": "npm run dev -w @quantum-ops/web",
+    "dev:api": "cd apps/quantum-api && ./.venv/bin/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "build": "npm run build -w @quantum-ops/web",
+    "lint": "npm run lint -w @quantum-ops/web",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up --build",
+    "docker:up:detached": "docker compose up --build -d"
+  }
+}

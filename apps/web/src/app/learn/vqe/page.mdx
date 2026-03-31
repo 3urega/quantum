@@ -1,0 +1,27 @@
+# VQE — vista previa didáctica
+
+El template **VQE toy** en la aplicación está **pendiente de implementación**: es la fase avanzada del roadmap (algoritmos variacionales serios). Mientras tanto, esta página fija **objetivos de aprendizaje** y prerequisitos.
+
+## Idea general
+
+El **Variational Quantum Eigensolver (VQE)** usa un circuito parametrizado $\lvert \psi(\theta) \rangle$ y minimiza el valor esperado de un observador (típicamente un **Hamiltoniano** $H$) respecto a $\theta$, usando un optimizador clásico en el bucle externo:
+
+$$
+\min_\theta \langle \psi(\theta) \vert H \vert \psi(\theta) \rangle.
+$$
+
+Es especialmente relevante para **química cuántica** y física de materiales en registros pequeños.
+
+## Prerrequisitos sugeridos
+
+- Mecánica cuántica básica (valores esperados, observables hermíticos).
+- Optimización en $\mathbb{R}^d$ (gradiente, ruido en la estimación de energía).
+- Familiaridad con el concepto de **barren plateau** a nivel divulgativo (por qué el entrenamiento variacional puede ser difícil).
+
+## En la app (futuro)
+
+Esperamos mostrar **curvas de energía** frente a iteración, comparar con un valor de referencia y mantener el mismo estilo de resultados “producto” que en Bell y GHZ (sin filtrar todo el detalle del SDK).
+
+---
+
+[Índice de tutoriales](/learn) · [Experimentos](/experiments)

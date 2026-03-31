@@ -1,0 +1,50 @@
+# Estado de Bell en la app
+
+## Qué construye el circuito
+
+Trabajamos con **dos qubits**. La base computacional es
+
+$$
+\bigl\{ \lvert 00 \rangle,\, \lvert 01 \rangle,\, \lvert 10 \rangle,\, \lvert 11 \rangle \bigr\}.
+$$
+
+La puerta **Hadamard** actúa como
+
+$$
+H = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.
+$$
+
+Un **CNOT** con control en el primer qubit y objetivo en el segundo transforma la base según
+
+$$
+\mathrm{CNOT}\,\lvert a, b \rangle = \lvert a,\, b \oplus a \rangle,
+$$
+
+donde $\oplus$ es la suma módulo $2$.
+
+El circuito estándar que prepara el estado de Bell **$\lvert \Phi^+ \rangle$** aplica $H$ al primer qubit y luego $\mathrm{CNOT}$ con control $0 \to$ target $1$:
+
+$$
+\lvert \Phi^+ \rangle
+  = \frac{1}{\sqrt{2}}\bigl( \lvert 00 \rangle + \lvert 11 \rangle \bigr).
+$$
+
+## Qué deberías ver tras medir
+
+En un simulador **ideal**, al medir ambos qubits en la base computacional solo son tiempos **posibles** $\lvert 00 \rangle$ y $\lvert 11 \rangle$, cada uno con probabilidad $1/2$. Por tanto, con muchos shots esperas **dos picos** de altura similar; con pocos shots, las fluctuaciones son normales.
+
+## Profundidad y conteo de puertas
+
+La interfaz muestra métricas del circuito **después de transpilar** al backend del simulador. No siempre coinciden con el dibujo “conceptual” (una $H$, un $\mathrm{CNOT}$, mediciones): la profundidad resume algo parecido al coste temporal en hardware real y sirve para comparar variantes.
+
+## En esta pantalla
+
+Abre el experimento **[Bell State](/experiments/bell-state)**:
+
+- Ajusta el número de **shots** y observa cómo se estabilizan las proporciones.
+- Comprueba que el histograma concentra masa en $\lvert 00 \rangle$ y $\lvert 11 \rangle$.
+- Lee las **métricas** y el bloque OpenQASM si quieres ver el circuito ya transpilado.
+
+---
+
+[Fundamentos](/learn/fundamentos) · [GHZ](/learn/ghz) · [Índice](/learn)

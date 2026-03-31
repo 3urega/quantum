@@ -1,0 +1,39 @@
+# Dependencies (reinstall in image)
+node_modules
+**/node_modules
+apps/quantum-api/.venv
+**/.venv
+
+# Next.js
+apps/web/.next
+**/.next
+out
+dist
+
+# Git / IDE
+.git
+.gitignore
+.cursor
+
+# Python
+__pycache__
+**/__pycache__
+*.py[cod]
+*$py.class
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.egg-info
+.eggs
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Docs (not needed in runtime images)
+docs
+
+# Tests / misc
+coverage
+*.log

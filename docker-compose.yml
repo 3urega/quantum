@@ -1,0 +1,20 @@
+services:
+  quantum-api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.quantum-api
+    ports:
+      - "8000:8000"
+    environment:
+      QUANTUM_API_CORS_ORIGINS: "${QUANTUM_API_CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}"
+
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.web
+      args:
+        NEXT_PUBLIC_QUANTUM_API_URL: "${NEXT_PUBLIC_QUANTUM_API_URL:-http://127.0.0.1:8000}"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - quantum-api
