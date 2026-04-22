@@ -11,7 +11,7 @@
     "prep": "npm run lint && npm run build",
     "cap:sync": "npx cap sync",
     "build:capacitor": "node scripts/capacitor-sync.mjs",
-    "android:sync": "npx cap sync android",
+    "android:sync": "node scripts/capacitor-sync.mjs",
     "android:open": "npx cap open android",
     "android:bundle": "cd android && gradlew.bat bundleRelease",
     "android:bundle:unix": "cd android && ./gradlew bundleRelease",
