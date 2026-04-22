@@ -1,0 +1,31 @@
+# 3. Puertas cuánticas
+
+> Las operaciones “programables” son matrices unitarias. Aquí, el lenguage común; en [4 · Circuitos](/learn/circuitos) se ve el orden y la composición.
+
+## 3.1 Puertas fundamentales
+
+Sobre **un qubit** (en la base computacional):
+
+- **$X$** (bit-flip, Pauli $X$): $X\lvert 0 \rangle = \lvert 1 \rangle$, y viceversa.
+- **$Y$, $Z$** (otras Pauli): rotaciones de $\pi$ alrededor de $y$ y $z$ en la [esfera de Bloch](/learn/qubits#bloch-param).
+- **$H$ (Hadamard):**
+
+$$
+H = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.
+$$
+
+- **$S$** (fase relativa) y **$T$** ($\pi/4$): fases que refinarán circuitos; no hace falta memorizar toda la tabla para entender el lab básico.
+
+Sobre **dos qubits**, la que más verás en Bell es **CNOT** (explicada en [Circuitos y Bell](/learn/circuitos#bell-circuito)).
+
+## 3.2 Geometría: rotaciones en la esfera de Bloch
+
+Cada puerta 1-qubit (generador hermítico) actúa como **rotación** de ángulo fijo en $S^2$ en la representación adecuada. Por eso el lab de Bell resalta $H$ y luego CNOT: primero pones el control en superposición, luego entrelazas. Ver [5 · Entrelazamiento](/learn/entrelazamiento).
+
+<h2 id="unitarias">3.3 Matrices unitarias</h2>
+
+$U$ es **unitaria** si $U^\dagger U = I$. Entonces $\lVert U\lvert \psi \rangle \rVert = \lVert \lvert \psi \rangle \rVert$: las probabilidades de medida, si se calculan sobre el estado evolucionado, se conservan a nivel de cálculo coherente.
+
+*Mini ejemplo:* $H$ es unitaria; $H\lvert 0 \rangle = \frac{1}{\sqrt{2}}(\lvert 0 \rangle + \lvert 1 \rangle)$, norma 1.
+
+<LearnChapterNav slug="puertas" />

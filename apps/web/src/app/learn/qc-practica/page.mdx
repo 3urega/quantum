@@ -1,0 +1,19 @@
+# 8. Computación cuántica práctica
+
+> Del formalismo a “hay un *circuito*, una *medición* y *shots*”.
+
+## 8.1 Qué es un algoritmo cuántico (en el sentido mínimo)
+
+- **Inicializas** (p. ej. $\lvert 0\cdots 0 \rangle$ o preparación fija de la app).
+- **Aplicas** una secuencia de puertas (unitarias) — es tu “programa”.
+- **Mides** en la base usada (típica: computacional) y lees cadenas de bits.
+- Repites (shots) para **estimar** $P(k)$. Ver [6 · Medición](/learn/medicion#regla-born).
+
+## 8.2 Ejemplos mínimos
+
+- **Bell** y **GHZ** en el catálogo: entrelazamiento e histogramas, sin requerir aceleración extra.
+- **Deutsch–Jozsa, Grover, Shor, etc.:** requieren más qubits, medidas estructuradas o oráculos: fuera del *scope* mínimo de este repo hoy, pero el mismo *postulado de Born* aplica a sus histogramas teóricos.
+
+**Dónde ejecutar ahora:** [Experimentos](/experiments) (Bell, GHZ) con *local_simulator*.
+
+<LearnChapterNav slug="qc-practica" />

@@ -35,6 +35,9 @@ export default function LearnLayout({ children }: { children: ReactNode }) {
           "[&_a]:text-cyan-700 [&_a]:underline [&_a]:underline-offset-2 dark:text-cyan-400",
           "[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:border-cyan-500/50 [&_blockquote]:pl-4 [&_blockquote]:italic",
           "[&_hr]:my-8 [&_hr]:border-zinc-200 dark:[&_hr]:border-zinc-800",
+          "[&_table]:my-4 [&_table]:w-full [&_table]:border-collapse [&_table]:text-sm",
+          "[&_th]:border [&_th]:border-zinc-200 [&_th]:bg-zinc-100/80 [&_th]:px-3 [&_th]:py-2 [&_th]:text-left dark:[&_th]:border-zinc-800 dark:[&_th]:bg-zinc-900/50",
+          "[&_td]:border [&_td]:border-zinc-200 [&_td]:px-3 [&_td]:py-2 dark:[&_td]:border-zinc-800",
           "[&_.katex-display]:my-6 [&_.katex-display]:overflow-x-auto",
         ].join(" ")}
       >

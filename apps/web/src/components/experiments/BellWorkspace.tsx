@@ -6,6 +6,7 @@ import { LearnCallout } from "@/components/LearnCallout";
 import { createRun, executeRun, fetchResult, getApiBase } from "@/lib/api";
 import { BellCircuitDiagram } from "./BellCircuitDiagram";
 import { BlochPreview2D } from "./BlochPreview2D";
+import { BlochPreview3D } from "./BlochPreview3D";
 import { ExperimentLabHeader } from "./ExperimentLabHeader";
 import { ExperimentRunHistorySection } from "./ExperimentRunHistorySection";
 import { useLabCompareState } from "./useLabCompareState";
@@ -107,6 +108,14 @@ export function BellWorkspace({ template }: Props) {
               </p>
             </div>
             <BlochPreview2D step={blochStep} />
+            <details className="rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-zinc-950/20 dark:bg-zinc-950/40 p-3 open:ring-1 open:ring-cyan-500/20">
+              <summary className="cursor-pointer list-none text-sm font-medium text-cyan-800 dark:text-cyan-200">
+                Bloch 3D (opt-in, carga WebGL)
+              </summary>
+              <div className="mt-3">
+                <BlochPreview3D step={blochStep} />
+              </div>
+            </details>
             <details className="group rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/30 open:ring-1 open:ring-cyan-500/20">
               <summary className="cursor-pointer list-none flex items-center justify-between gap-2 px-3 py-2 text-sm font-medium text-cyan-800 dark:text-cyan-200">
                 <span>Explicación (desplegar)</span>

@@ -1,0 +1,26 @@
+# 6. Medición y probabilidad
+
+> Conexión con la **UI de histogramas** y *shots*: vuelve a [Fundamentos](/learn/fundamentos) para el mismo truco en voz más corta.
+
+<h2 id="regla-born">6.1 Regla de Born (de amplitud a probabilidad)</h2>
+
+Si el estado inmediatamente **antes** de la medida (proyectiva en la base $\{\lvert k \rangle\}$) es $\lvert \psi \rangle$,
+
+$$
+P(k) = \lvert \langle k \vert \psi \rangle \rvert^2.
+$$
+
+En la app, no ves amplitudes en bruto: ves **frecuencias** $n_k$ que, con $N$ shots, aproximan $N \cdot P(k)$. Por eso subir *shots* acerca el histograma a las probabilidades teóricas sin cambiar el **estado** ideal del circuito.
+
+## 6.2 Distribuciones e histogramas
+
+Con $N$ repeticiones independientes, el conteo de la etiqueta $k$ es una muestra de una binomial/ multinomial según el modelo. Las **fluctuaciones** (dos runs con los mismos parámetros) son normales. En el producto, **comparar runs** (mismo *template_id*) alinea etiquetas: véase [11 · Puente al producto](/learn/puente-producto#comparar-runs).
+
+## 6.3 Estado (vector) frente a “resultado de medida”
+
+- El **estado** unitario (antes de leer) evoluciona con puertas: reversible en el modelo ideal.
+- El **número** que rellenan los histogramas es resultado de *medición*, estocástico dado $N$ finito.
+
+*Cruce hacia [Postulados §1.2](/learn/postulados#medicion-basica).*
+
+<LearnChapterNav slug="medicion" />

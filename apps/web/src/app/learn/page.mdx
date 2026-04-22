@@ -1,21 +1,42 @@
 # Tutoriales — Quantum Ops Lab
 
-Estas páginas están pensadas para quien ya domina **álgebra lineal y física básica** (por ejemplo, estudiantes de física) y quiere conectar el formalismo con lo que ves en la aplicación: plantillas de experimento, ejecuciones (*runs*), histogramas y métricas del circuito.
+Modo aprendizaje: **currículo indexado** (LaTeX con KaTeX) de prerrequisitos al **puente con el lab**. Cada capítulo incluye navegación *Anterior / Siguiente* al pie. Las referencias internas usan anclas (`#`) cuando conviene (p. ej. [regla de Born](/learn/medicion#regla-born)).
 
-## Cómo usar esta sección
+## Cómo empezar
 
-1. Lee **[Fundamentos](/learn/fundamentos)** si quieres repasar notación, medidas y la regla de Born en el contexto de los histogramas.
-2. Abre el tutorial del experimento que vayas a ejecutar: **[Bell](/learn/bell)** o **[GHZ](/learn/ghz)**.
-3. Vuelve a **[Experimentos](/experiments)**, ejecuta el circuito en el simulador y compara la salida con lo que predice la teoría.
+1. Sigue el **orden 0 → 11** en la tabla de abajo, o entra por el tema que te falte.
+2. Usa los **módulos ya existentes** (más detalle por experimento): [Fundamentos](/learn/fundamentos), [Bell](/learn/bell), [GHZ](/learn/ghz).
+3. Abre [Experimentos](/experiments) y compara con lo leído; el cierre [11 · Puente al producto](/learn/puente-producto) lista rutas concretas de la app.
 
-## Módulos disponibles
+## Currículo (0–11)
+
+| Nº | Tema | Ruta |
+|----|------|------|
+| 0 | Prerrequisitos matemáticos | [prerrequisitos](/learn/prerrequisitos) |
+| 1 | Postulados (versión operativa) | [postulados](/learn/postulados) |
+| 2 | Qubits | [qubits](/learn/qubits) |
+| 3 | Puertas cuánticas | [puertas](/learn/puertas) |
+| 4 | Circuitos cuánticos | [circuitos](/learn/circuitos) |
+| 5 | Entrelazamiento | [entrelazamiento](/learn/entrelazamiento) |
+| 6 | Medición y probabilidad | [medicion](/learn/medicion) |
+| 7 | Geometría cuántica (Bloch) | [geometria-cuantica](/learn/geometria-cuantica) |
+| 8 | Computación cuántica práctica | [qc-practica](/learn/qc-practica) |
+| 9 | Simulación y backends | [simulacion](/learn/simulacion) |
+| 10 | Interpretación mínima | [interpretacion](/learn/interpretacion) |
+| 11 | Puente al producto | [puente-producto](/learn/puente-producto) |
+
+**Empieza por el capítulo 0:** [Prerrequisitos](/learn/prerrequisitos).
+
+## Módulos por experimento (existentes)
 
 | Tema | Enlace |
 |------|--------|
-| Notación, medidas, shots | [Fundamentos](/learn/fundamentos) |
-| Par de Bell, $H$ y $\mathrm{CNOT}$ | [Estado de Bell](/learn/bell) |
-| Entrelazamiento multiqubit | [Estado GHZ](/learn/ghz) |
-| QAOA (próximamente en la app) | [QAOA — vista previa](/learn/qaoa) |
-| VQE (próximamente en la app) | [VQE — vista previa](/learn/vqe) |
+| Notación, medidas, shots (detalle) | [Fundamentos](/learn/fundamentos) |
+| Par de Bell, $H$ y CNOT en la app | [Estado de Bell](/learn/bell) |
+| GHZ multiqubit y escalado | [Estado GHZ](/learn/ghz) |
+| QAOA (ejecución pendiente) | [QAOA — vista previa](/learn/qaoa) |
+| VQE (ejecución pendiente) | [VQE — vista previa](/learn/vqe) |
 
-Las fórmulas usan LaTeX ($\LaTeX$ en línea y bloques donde haga falta). Si no ves símbolos correctamente, recarga la página o comprueba que no bloquees recursos del CSS de KaTeX.
+Las fórmulas usan LaTeX en línea y en bloque. Si no se renderizan, recarga o comprueba que el CSS de KaTeX no esté bloqueado.
+
+**Índice de diseño (fuente de capítulos):** documento `tutorial.md` en la raíz del repositorio.

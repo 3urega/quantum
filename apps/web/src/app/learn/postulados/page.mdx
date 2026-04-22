@@ -1,0 +1,31 @@
+# 1. Postulados (versión operativa)
+
+> Versión mínima para leer algoritmos y la app, no para demostrar la teoría de von Neumann al completo. Para notación y Born operativos, también existe [Fundamentos](/learn/fundamentos).
+
+## 1.1 Estados cuánticos
+
+Un estado puro se representa con un **ket** $\lvert \psi \rangle$ (vector normalizado) en un espacio de Hilbert. La **superposición** lineal
+
+$$
+\lvert \psi \rangle = \sum_k c_k \lvert k \rangle
+$$
+
+es válida si $\langle \psi \vert \psi \rangle = 1$ (equivalentemente $\sum_k |c_k|^2 = 1$ en una base ortonormal).
+
+<h2 id="medicion-basica">1.2 Medición (Born y colapso)</h2>
+
+En la **base computacional** $\{\lvert i \rangle\}$, la probabilidad de resultado $i$ al medir un estado $\lvert \psi \rangle$ es
+
+$$
+P(i) = \lvert \langle i \vert \psi \rangle \rvert^2.
+$$
+
+Tras observar $i$, el postulado de **proyección** fija (en el caso ideal) el estado en el subespacio asociado a ese resultado; en la app solo ves repeticiones (shots), no un “estado colapsado en bruto”.
+
+## 1.3 Evolución: operadores unitarios
+
+Entre mediciones, la evolución es **reversible** y se representa con matrices **unitarias** $U^\dagger U = I$ que preservan la norma. En la app, cada **puerta** de circuito es un operador (en el espacio adecuado) encadenado con los siguientes. Véase [Circuitos](/learn/circuitos).
+
+**Cruce con el producto:** estados, medidas e histogramas se enlazan de nuevo en [6 · Medición](/learn/medicion#regla-born) y [11 · Puente al producto](/learn/puente-producto).
+
+<LearnChapterNav slug="postulados" />

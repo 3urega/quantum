@@ -1,6 +1,6 @@
 # Roadmap MVP — Quantum Ops Lab
 
-Versión: 1.5  
+Versión: 1.6  
 Estado: **activo** (sustituye al plan macro para el cierre pre–Android)  
 Contexto: [`feedback.md`](feedback.md), **wireframe Next.js (§1.2)**, y especificación **esfera de Bloch** ([`esfera.md`](esfera.md), §1.3) para intuición de estado (post–P0 / P1, no bloquea el núcleo compare+circuito).
 
@@ -39,7 +39,7 @@ La frase original sigue siendo válida como resumen:
 | Dominio explícito | Run/Result documentados (`docs/domain/experiment-lifecycle.md`); tipos y API alineados. | Cumplido + ejemplos API compare/lab en lifecycle (v1.4). |
 | Roadmap = realidad | README + este archivo; estados “hecho / en curso / fuera de MVP estricto” claros. | Cumplido (Fase D/E/G alineadas al código en esta versión). |
 
-**G.2 (DoD):** la tabla anterior queda revisada para v1.4. **Fuera de alcance explícito del P0:** Bloch **3D** (R3F) según [`esfera.md`](esfera.md); la UI incluye preview 2D como P1 parcial (D.5).
+**G.2 (DoD):** la tabla anterior queda revisada para v1.4+. **Fuera de alcance explícito del P0 mínimo:** spec completa Bloch 3D (timeline, modos) en [`esfera.md`](esfera.md). La UI incluye **2D** y **3D R3F opt-in** (D.5 / v1.6) como P1; el núcleo compare+circuito no depende de 3D.
 
 ### Criterios de éxito (feedback senior)
 
@@ -114,7 +114,7 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 | Historial (timestamp, params) | **Hecho** con Postgres; **en lab:** checkboxes + compare. |
 | Hover/toggle + tooltips puertas | **Hecho** (acordeón, `<title>` en SVG, transiciones en barras). |
 | Animación “run” en circuito | **Hecho** (secuencia H → CNOT antes de ejecutar). |
-| Esfera(s) de Bloch 3D | **Pendiente (opcional):** preview 2D en UI; R3F en [`esfera.md`](esfera.md) ([§1.3](#13-esfera-de-bloch)). |
+| Esfera(s) de Bloch 3D | **Hecho (P1, opt-in):** vista 3D con R3F bajo bloque desplegable en lab Bell (`BlochPreview3D`, `bloch3d/BlochSphereCanvas`); preview 2D sigue siendo la vista por defecto. Ver [`esfera.md`](esfera.md) para fases Bloch-2/3 (timeline, etc.). |
 
 ---
 
@@ -178,7 +178,7 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 | D.2b | Explicación **inline** (hover, toggle, acordeón): qué hace H, CNOT, cómo leer el chart (objetivo: sin depender solo de tutoriales largos). | P0 | [x] |
 | D.3 | **Comparación visual entre dos runs** (Bell): mismas etiquetas, dos series o diff — *killer feature*. | P0 | [x] |
 | D.4 | Vista o panel de **diff** de parámetros (shots) + métricas + tiempos entre los dos runs. | P0 | [x] |
-| D.5 | **Esfera de Bloch (P1).** **[`esfera.md`](esfera.md)** (R3F) **no** implementado; **preview 2D** en lab (`BlochPreview2D`). R3F queda como mejora opcional. | P1 | [x] |
+| D.5 | **Esfera de Bloch (P1).** **2D** en lab (`BlochPreview2D`); **3D R3F** opt-in y colapsable (`BlochPreview3D`, `getBellBlochState` compartido). [`esfera.md`](esfera.md): mejoras extra (timeline, dos modos) post–MVP P0. | P1 | [x] |
 | D.6 | **Pantalla Bell según §1.2:** header + dos columnas (experimento \| run+resultado) + bloque historial + panel comparación; puede ser evolución de `/experiments/bell-state` o ruta única tipo `/lab/bell`. | P0 | [x] |
 | D.7 | **Microinteracciones:** tooltips en H/CNOT, transición suave al actualizar barras, highlight en modo compare. | P1 | [x] |
 | D.8 | **Feedback al Run:** animación breve o highlight secuencial en el diagrama del circuito durante la ejecución (puede usar delay + estado visual *fake*). | P1 | [x] |
@@ -262,7 +262,9 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 
 Revisar este documento al terminar Fase D o al cambiar el experimento hero, lo que ocurra primero.
 
-*Última actualización: **v1.5** — F.1 y F.2: lab GHZ alineado a Bell (layout, `GET /runs/lab?template_id=ghz-state`, `POST /runs/compare`); piezas compartidas en `apps/web/src/components/experiments/` (`useLabCompareState`, `ExperimentRunHistorySection`, `ExperimentLabHeader`, etc.); nota de verificación GHZ en `docs/VERIFY_BELL_MVP.md`.*
+*Última actualización: **v1.6** — Bloch 3D (R3F) opt-in en `/experiments/bell-state`: `BlochPreview3D`, `bloch3d/*`, dependencias `three` / `@react-three/fiber` / `@react-three/drei`; ángulos compartidos con `BlochPreview2D` vía `getBellBlochState`.*
+
+*Anterior: **v1.5** — F.1 y F.2: lab GHZ alineado a Bell; piezas compartidas; nota GHZ en `docs/VERIFY_BELL_MVP.md`.*
 
 *Anterior: **v1.4** — Fase D/E/G cerradas en documentación; DoD §1 verificada; contrato E.4 en `experiment-lifecycle.md` §7; demo y verificación en README y `docs/VERIFY_BELL_MVP.md`.*
 
@@ -281,5 +283,7 @@ Revisar este documento al terminar Fase D o al cambiar el experimento hero, lo q
 **v1.4:** Cierre **Fase D/E** en código + **Fase G**: DoD §1 ampliada con columna de verificación; tablas D/E/G marcadas; encaje al día; contrato **E.4** en [`docs/domain/experiment-lifecycle.md`](docs/domain/experiment-lifecycle.md) (JSON + OpenAPI); demo en [README](README.md); verificación manual documentada ([`docs/VERIFY_BELL_MVP.md`](docs/VERIFY_BELL_MVP.md)). Bloch 3D (R3F) permanece fuera del cierre P0.
 
 **v1.5:** **Fase F (F.1, F.2)**: ruta **GHZ** con mismo patrón de lab que Bell (cabecera, dos columnas, historial con compare); sin duplicar lógica de `fetchRunsForLab` / `compareRuns`; diagrama `GhzCircuitDiagram` (H + CNOT en cadena); encaje de documentación y comprobación API en `docs/VERIFY_BELL_MVP.md`.
+
+**v1.6:** Vista **Bloch 3D** (react-three-fiber) en lab Bell, bloque desplegable; no sustituye el 2D; alineado con [`esfera.md`](esfera.md) como primer hito 3D.
 
 Revisión posterior: el archivo de feedback pasa a llamarse `feedback.md` (antes `feedbakc.md`); correcciones de redacción en `experiment-lifecycle.md` (estado `draft`) y en README (Bell hero vs GHZ E2E).

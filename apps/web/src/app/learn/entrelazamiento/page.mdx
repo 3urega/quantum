@@ -1,0 +1,26 @@
+# 5. Entrelazamiento
+
+> Punto de inflexión conceptual: el sistema no se describe como “dos qubits independientes en Bloch a la vez”.
+
+## 5.1 Estados no separables
+
+Un estado de **dos** qubits es **separable** (producto) si $\lvert \psi \rangle = \lvert \phi_A \rangle \otimes \lvert \phi_B \rangle$. Si **no** puede escribirse así, es **entrelazado** (más formalmente: $n$ entrelazamiento multipartito se extiende a más cuerpos).
+
+<h2 id="bell-states">5.2 Estados de Bell y el ejemplo Phi-plus</h2>
+
+Los cuatro **estados de Bell** forman una base ortonormal de $(\mathbb{C}^2)^{\otimes 2}$. Uno de ellos es
+
+$$
+\lvert \Phi^+ \rangle = \frac{\lvert 00 \rangle + \lvert 11 \rangle}{\sqrt{2}}.
+$$
+
+*Mini ejemplo (correlación):* midiendo ambos qubits en la base computacional, la probabilidad conjunta concentra masa en $00$ y $11$ (idealmente 50% — 50%); no es un producto de fronteras 1-cuerpo. El [tutorial Bell](/learn/bell) conecta con el histograma.
+
+**GHZ** (varios cuerpos) se ve en [GHZ (teoría)](/learn/ghz) y en [experimento GHZ](/experiments/ghz-state).
+
+## 5.3 Consecuencias
+
+- **Correlaciones** fuertes: lo que mides en $A$ restringe lo que verás en $B$.
+- **No** hay estados 1-cuerpo en Bloch cuyo producto reproduzca al global; de ahí el texto “intuición, no descripción completa” en el lab 2D/3D.
+
+<LearnChapterNav slug="entrelazamiento" />

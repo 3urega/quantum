@@ -28,10 +28,12 @@
 | Placeholder QAOA/VQE | `experiments/[slug]` | Enlace a [`/learn/qaoa`](/learn/qaoa) y [`/learn/vqe`](/learn/vqe) |
 | Navegación global | `layout.tsx` | **“Aprende”** → [`/learn`](/learn) |
 | Contenido MDX | `apps/web/src/app/learn/**/*.mdx` | Pila: `@next/mdx`, `remark-math`, `rehype-katex`, CSS KaTeX en `learn/layout.tsx` |
+| Currículo 0–11 (modo aprendizaje) | `apps/web/src/lib/learn/curriculum.ts`, `LearnChapterNav` en `mdx-components` | 12 capítulos (`/learn/prerrequisitos` … `/learn/puente-producto`); anclas internas y tabla en `/learn` |
 
 **Rutas públicas (dev, prefijo `http://localhost:3000`):**
 
-- `/learn` — índice
+- `/learn` — índice (incluye tabla del currículo 0–11 y enlaces a módulos por experimento)
+- **Currículo (orden sugerido):** `/learn/prerrequisitos`, `postulados`, `qubits`, `puertas`, `circuitos`, `entrelazamiento`, `medicion`, `geometria-cuantica`, `qc-practica`, `simulacion`, `interpretacion`, `puente-producto`
 - `/learn/fundamentos` — notación, medida, Born, shots
 - `/learn/bell` — Bell y circuito en la app
 - `/learn/ghz` — GHZ y escalado

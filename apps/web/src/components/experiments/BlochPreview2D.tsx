@@ -1,8 +1,10 @@
 "use client";
 
+import { getBellBlochState, type BellBlochStep } from "./bloch3d/blochMath";
+
 /**
  * P1 / D.5: lightweight 2D Bloch "disc" (no three.js) — one sphere per qubit, Bell narrative.
- * Full R3F spec lives in /esfera.md at the repo root.
+ * Full R3F spec lives in /esfera.md at the repo root. Ángulos: {@link getBellBlochState}.
  */
 
 type BlochQubitProps = {
@@ -87,16 +89,13 @@ function BlochDisc({ label, theta, phi, vectorOpacity = 1 }: BlochQubitProps) {
 
 type Props = {
   /** 0: |00> init, 1: after H on q0, 2: after CNOT (entangled — show fade + link) */
-  step: 0 | 1 | 2;
+  step: BellBlochStep;
   className?: string;
 };
 
 export function BlochPreview2D({ step, className = "" }: Props) {
-  const t0 = step >= 1 ? Math.PI / 2 : 0;
-  const p0 = 0;
-  const t1 = step >= 2 ? Math.PI / 2 : 0;
-  const p1 = 0;
-  const entangled = step >= 2;
+  const { q0, q1, entangled } = getBellBlochState(step);
+  const op = entangled ? 0.45 : 1;
 
   return (
     <div className={className}>
@@ -104,8 +103,8 @@ export function BlochPreview2D({ step, className = "" }: Props) {
         Bloch (partial view)
       </p>
       <div className="flex flex-wrap items-end justify-center gap-6">
-        <BlochDisc label="Qubit 0" theta={t0} phi={p0} vectorOpacity={entangled ? 0.45 : 1} />
-        <BlochDisc label="Qubit 1" theta={t1} phi={p1} vectorOpacity={entangled ? 0.45 : 1} />
+        <BlochDisc label="Qubit 0" theta={q0.theta} phi={q0.phi} vectorOpacity={op} />
+        <BlochDisc label="Qubit 1" theta={q1.theta} phi={q1.phi} vectorOpacity={op} />
       </div>
       {entangled ? (
         <p className="mt-2 text-xs text-amber-700/90 dark:text-amber-200/90 max-w-sm">

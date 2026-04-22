@@ -1,0 +1,19 @@
+# 9. Simulación y backends
+
+> Cómo encaja un motor tipo **Qiskit / Aer** con la idea de *vector de estado* y por qué el producto aún te muestra *shots* (muestreo), no el vector completo en muchos lados.
+
+## 9.1 Vector de estado y simulación exacta
+
+Para un sistema pequeño, el simulador puede tratar el **ket** complejo en memoria, aplicar $U$ y luego muestrear la medida. El coste crece ~como $2^n$ (estado denso) en muchos algoritmos, salvo estructura especial. Por eso GHZ a [varios cuerpos](/learn/ghz) cuesta más.
+
+## 9.2 Ruido (intro)
+
+En hardware real, ruido y decoherencia desvían frecuencias de las predicciones ideales. El MVP local **ignora** ruido: comparas con un circuito *ideal*.
+
+## 9.3 Simulador frente a hardware
+
+En la app, el catálogo enumera *backends*; hoy *local_simulator* con Qiskit Aer es el camino soportado para Bell/GHZ. **Hardware** distinto: más adelante, mismos *postulados* de [medida](/learn/medicion), pero requiere *mapping*, calibración y carga de error.
+
+*API:* los *runs* persisten y puedes reconsultar *results*; véase *experiment lifecycle* en el dominio de documentación.
+
+<LearnChapterNav slug="simulacion" />

@@ -1,0 +1,37 @@
+# 0. Prerrequisitos matemáticos
+
+> Objetivo: refrescar el lenguaje sin un curso completo. Lo demás del currículo usa sin explicar de nuevo estos bloques.
+
+## 0.1 Números complejos
+
+Un complejo $z = a + ib$ con $a,b \in \mathbb{R}$ tiene **conjugado** $\bar z = a - ib$ y **módulo** $|z| = \sqrt{a^2+b^2} = \sqrt{z\bar z}$.
+
+Forma **polar**: $z = r e^{i\theta}$ con $r \geq 0$ y $\theta \in \mathbb{R}$.
+
+**Fórmula de Euler** (clave en fases de qubit):
+
+$$
+e^{i\theta} = \cos\theta + i\sin\theta.
+$$
+
+*Mini ejemplo:* $e^{i\pi/2} = i$, $e^{i\pi} = -1$.
+
+## 0.2 Álgebra lineal en $\mathbb{C}^n$
+
+Los **estados** de $n$ niveles son vectores columna en $\mathbb{C}^d$ (con $d=2^n$ para $n$ qubits). El **producto escalar** (interno) usual es
+
+$$
+\langle u \vert v \rangle = \sum_j \overline{u_j}\, v_j,
+$$
+
+y la **norma** $\lVert v \rVert = \sqrt{\langle v \vert v \rangle}$.
+
+Una **base ortonormal** $\{e_j\}$ cumple $\langle e_i \vert e_j \rangle = \delta_{ij}$.
+
+## 0.3 Autovalores (uso mínimo)
+
+Un operador $A$ admite, en buenos casos, **autovectores** $Av = \lambda v$ con **autovalor** $\lambda$. En mecánica cuántica, los observables hermíticos tienen espectro real; las **puertas** que verás en el lab suelen ser **unitarias** (autovalores de módulo 1), lo que conecta con rotaciones y conservación de norma. Detalle: capítulo [3 · Puertas](/learn/puertas#unitarias) y [1 · Postulados](/learn/postulados).
+
+**Siguiente paso:** [1 · Postulados](/learn/postulados).
+
+<LearnChapterNav slug="prerrequisitos" />

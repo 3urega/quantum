@@ -1,0 +1,41 @@
+# 2. Qubits
+
+> Conexión directa con la UI: un qubit es el bloque básico de un circuito. Profundizamos fases y [esfera de Bloch en §2.4](#bloch-param); la vista 3D del lab se enlaza desde [7 · Geometría](/learn/geometria-cuantica).
+
+## 2.1 Definición formal
+
+Un **qubit** puro se escribe
+
+$$
+\lvert \psi \rangle = \alpha\lvert 0 \rangle + \beta\lvert 1 \rangle,
+\qquad \alpha,\beta \in \mathbb{C}.
+$$
+
+## 2.2 Normalización
+
+La condición de estado físico (probabilidades suman 1) es
+
+$$
+\lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1.
+$$
+
+En la app, al pedir *shots* sobre la base computacional, las frecuencias aproximan $|\alpha|^2$ y $|\beta|^2$ para un producto de un solo qubit (sin entrelazamiento con otros); con varios qubits, las probabilidades son $|\langle k \vert \psi \rangle|^2$ con $k$ una cadena de bits.
+
+## 2.3 Fase global y fase relativa
+
+El ket $e^{i\chi}\lvert \psi \rangle$ con $\chi$ real describe el **mismo** estado que $\lvert \psi \rangle$ (no es observable si solo se miden las probabilidades anteriores). Entre términos de una **superposición** multicomponente, importan **fases relativas**; eso afecta a interferencia y a estados de varios cuerpos.
+
+<h2 id="bloch-param">2.4 Esfera de Bloch (parametrización)</h2>
+
+Un qubit puro (salvo fase global) se parametriza con ángulos $(\theta,\phi)$:
+
+$$
+\lvert \psi \rangle = \cos\frac{\theta}{2}\lvert 0 \rangle + e^{i\phi}\sin\frac{\theta}{2}\lvert 1 \rangle,
+\qquad \theta \in [0,\pi],\ \phi \in [0,2\pi).
+$$
+
+Geométricamente: un punto en la esfera $S^2$ (Bloch). En el lab de **Bell** puedes abrir la vista 3D para orbitar y comparar con el relato de [Geometría](/learn/geometria-cuantica).
+
+**Tutoriales existentes del repo:** notación y Born en [Fundamentos](/learn/fundamentos); el circuito concreto en [Bell](/learn/bell) y [GHZ](/learn/ghz).
+
+<LearnChapterNav slug="qubits" />

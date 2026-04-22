@@ -1,0 +1,33 @@
+# 4. Circuitos cuánticos
+
+> De las matrices sueltas a la notación de “líneas y cajas” que usan Qiskit, la app y la mayoría de textos de QC.
+
+## 4.1 Notación y orden
+
+- Cada **línea** horizontal es un **qubit**.
+- Las **cajas** a la izquierda → derecha son puertas aplicadas en el **orden temporal** (primero la más a la izquierda).
+- Las puertas de un solo qubit viven en una submatriz; las de **dos** (CNOT) actúan en $\mathbb{C}^4$.
+
+## 4.2 Composición
+
+Si $U_1$ actúa y luego $U_2$ sobre el mismo subespacio, el operador compuesto (leyendo el circuito) es
+
+$$
+U = U_2 U_1
+$$
+
+(en convención común: aplicación *primero* $U_1$). En producto de espacios, el orden importa: no todas las compuestas conmutan.
+
+<h2 id="bell-circuito">4.3 Ejemplo: estado de Bell</h2>
+
+Un patrón universal para el par de Bell $\lvert \Phi^+ \rangle$ es **H en $q_0$** seguido de **CNOT** con control $q_0$ y **target** $q_1$:
+
+$$
+\lvert \Phi^+ \rangle = \frac{\lvert 00 \rangle + \lvert 11 \rangle}{\sqrt{2}}.
+$$
+
+En la app, ese circuito vive bajo [Bell (experimento)](/experiments/bell-state) y el tutorial [Bell (teoría)](/learn/bell) enlaza fórmulas e histograma.
+
+**Cruce:** [Entrelazamiento · Bell states](/learn/entrelazamiento#bell-states) y [Medición con shots](/learn/medicion).
+
+<LearnChapterNav slug="circuitos" />
