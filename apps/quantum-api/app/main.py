@@ -14,7 +14,10 @@ async def lifespan(app: FastAPI):
 
     import app.infrastructure.persistence.models  # noqa: F401 - register ORM tables
 
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"Warning: Failed to initialize database tables: {e}")
     yield
 
 
