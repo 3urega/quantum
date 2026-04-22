@@ -1,4 +1,4 @@
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic.aliases import AliasChoices
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,6 +14,29 @@ class Settings(BaseSettings):
             "QUANTUM_API_DATABASE_URL",
         ),
     )
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def ensure_psycopg3_dialect(cls, v: str) -> str:
+        """Rewrite the database URL dialect to psycopg (v3).
+
+        Railway and other platforms may inject a DATABASE_URL that uses the
+        bare ``postgresql://`` scheme or the ``postgresql+psycopg2://`` dialect.
+        Both are incompatible with the installed psycopg v3 driver.  This
+        validator normalises any postgresql URL to ``postgresql+psycopg://``
+        so SQLAlchemy always uses the correct driver.
+        """
+        replacements = [
+            ("postgresql+psycopg2://", "postgresql+psycopg://"),
+            ("postgres+psycopg2://", "postgresql+psycopg://"),
+            # Bare schemes emitted by Railway / Heroku style DATABASE_URL
+            ("postgresql://", "postgresql+psycopg://"),
+            ("postgres://", "postgresql+psycopg://"),
+        ]
+        for old, new in replacements:
+            if v.startswith(old):
+                return new + v[len(old):]
+        return v
 
     @property
     def cors_origin_list(self) -> list[str]:
