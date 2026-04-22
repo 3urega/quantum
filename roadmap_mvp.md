@@ -183,7 +183,7 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 | D.7 | **Microinteracciones:** tooltips en H/CNOT, transición suave al actualizar barras, highlight en modo compare. | P1 | [x] |
 | D.8 | **Feedback al Run:** animación breve o highlight secuencial en el diagrama del circuito durante la ejecución (puede usar delay + estado visual *fake*). | P1 | [x] |
 
-\*D.5: criterio “producto v1.4” = preview 2D + copy; R3F según `esfera.md` no bloquea cierre.
+*Nota D.5:* criterio “producto v1.4” = preview 2D + copy; R3F según `esfera.md` no bloquea cierre.
 
 **Salida:** la frase *“workstation y comparable”* se siente en la UI; el wireframe §1.2 es la **brújula** de componentes y layout.
 
