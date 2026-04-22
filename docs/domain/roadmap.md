@@ -1,5 +1,7 @@
 # QUANTUM OPS LAB — ROADMAP EJECUTABLE PARA CURSOR
 
+> **Nota (2026):** El plan de ejecución **actual** del producto vive en la raíz del repo: [`roadmap_mvp.md`](../../roadmap_mvp.md). Ese documento prioriza cierre de MVP (un experimento hero, comparación de runs, etc.). **Este fichero** sigue valiendo como visión, backlog largo e histórico (fases 5–10 y checklist): no implica *commit* inmediato de todo lo listado. Para “qué hacemos ahora”, usa `roadmap_mvp.md`.
+
 ## Objetivo del roadmap
 
 Construir un **MVP serio y visualmente potente** de una plataforma de experimentación cuántica basada en:

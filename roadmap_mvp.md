@@ -1,6 +1,6 @@
 # Roadmap MVP — Quantum Ops Lab
 
-Versión: 1.4  
+Versión: 1.5  
 Estado: **activo** (sustituye al plan macro para el cierre pre–Android)  
 Contexto: [`feedback.md`](feedback.md), **wireframe Next.js (§1.2)**, y especificación **esfera de Bloch** ([`esfera.md`](esfera.md), §1.3) para intuición de estado (post–P0 / P1, no bloquea el núcleo compare+circuito).
 
@@ -110,7 +110,7 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 | Comparar 2 runs | **Hecho** (`POST /runs/compare` + UI). |
 | Circuito visual (H+CNOT) | **Hecho** (diagrama SVG en lab Bell). |
 | Estado + intuición inline | **Hecho** (fórmula + texto + Bloch 2D). |
-| Una pantalla / wireframe §1.2 | **Hecho** (`BellWorkspace`, columna experimento / run + historial + compare). |
+| Una pantalla / wireframe §1.2 | **Hecho** (`BellWorkspace` y, con el mismo patrón de lab, [`GhzWorkspace`](apps/web/src/components/experiments/GhzWorkspace.tsx): columna experimento / run + historial + compare). |
 | Historial (timestamp, params) | **Hecho** con Postgres; **en lab:** checkboxes + compare. |
 | Hover/toggle + tooltips puertas | **Hecho** (acordeón, `<title>` en SVG, transiciones en barras). |
 | Animación “run” en circuito | **Hecho** (secuencia H → CNOT antes de ejecutar). |
@@ -212,8 +212,8 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 
 | Paso | Tarea | Hecho |
 |------|--------|------|
-| F.1 | Mismos estándares de visual y comparación que el hero, reutilizando componentes. | [ ] |
-| F.2 | No duplicar lógica de negocio: reutilizar comparación y vista de circuito. | [ ] |
+| F.1 | Mismos estándares de visual y comparación que el hero, reutilizando componentes. | [x] |
+| F.2 | No duplicar lógica de negocio: reutilizar comparación y vista de circuito. | [x] |
 
 **Salida:** GHZ añade valor sin reabrir un segundo MVP paralelo desordenado.
 
@@ -262,7 +262,9 @@ Referencia de implementación: **una sola pantalla** usable en ~10 s; prioridad 
 
 Revisar este documento al terminar Fase D o al cambiar el experimento hero, lo que ocurra primero.
 
-*Última actualización: **v1.4** — Fase D/E/G cerradas en documentación; DoD §1 verificada; contrato E.4 en `experiment-lifecycle.md` §7; demo y verificación en README y `docs/VERIFY_BELL_MVP.md`.*
+*Última actualización: **v1.5** — F.1 y F.2: lab GHZ alineado a Bell (layout, `GET /runs/lab?template_id=ghz-state`, `POST /runs/compare`); piezas compartidas en `apps/web/src/components/experiments/` (`useLabCompareState`, `ExperimentRunHistorySection`, `ExperimentLabHeader`, etc.); nota de verificación GHZ en `docs/VERIFY_BELL_MVP.md`.*
+
+*Anterior: **v1.4** — Fase D/E/G cerradas en documentación; DoD §1 verificada; contrato E.4 en `experiment-lifecycle.md` §7; demo y verificación en README y `docs/VERIFY_BELL_MVP.md`.*
 
 2026-04-22 — Fase A completada: README, nota en `docs/domain/roadmap.md`, copy en home y catálogo, `apps/web/src/lib/experiment-availability.ts`.
 2026-04-22 — Fase B completada: `docs/domain/experiment-lifecycle.md`, referencias en `packages/shared-types` y `app/schemas/common.py`.  
@@ -277,5 +279,7 @@ Revisar este documento al terminar Fase D o al cambiar el experimento hero, lo q
 **v1.3.1:** **§1.3** recortada: el detalle (UX, fases, código) queda en [`esfera.md`](esfera.md); el roadmap mantiene punteros y mínimo contractual.
 
 **v1.4:** Cierre **Fase D/E** en código + **Fase G**: DoD §1 ampliada con columna de verificación; tablas D/E/G marcadas; encaje al día; contrato **E.4** en [`docs/domain/experiment-lifecycle.md`](docs/domain/experiment-lifecycle.md) (JSON + OpenAPI); demo en [README](README.md); verificación manual documentada ([`docs/VERIFY_BELL_MVP.md`](docs/VERIFY_BELL_MVP.md)). Bloch 3D (R3F) permanece fuera del cierre P0.
+
+**v1.5:** **Fase F (F.1, F.2)**: ruta **GHZ** con mismo patrón de lab que Bell (cabecera, dos columnas, historial con compare); sin duplicar lógica de `fetchRunsForLab` / `compareRuns`; diagrama `GhzCircuitDiagram` (H + CNOT en cadena); encaje de documentación y comprobación API en `docs/VERIFY_BELL_MVP.md`.
 
 Revisión posterior: el archivo de feedback pasa a llamarse `feedback.md` (antes `feedbakc.md`); correcciones de redacción en `experiment-lifecycle.md` (estado `draft`) y en README (Bell hero vs GHZ E2E).

@@ -1,4 +1,4 @@
-# Verificación manual — Bell MVP (API)
+# Verificación manual — lab Bell / GHZ (API)
 
 Objetivo: comprobar en local que el motor y los endpoints de **lab** y **compare** responden **después de alinear el proceso** con el código del repo (si el servidor llevaba mucho tiempo sin reiniciar, `GET /openapi.json` puede no listar aún `\/runs\/compare`).
 
@@ -33,3 +33,21 @@ curl -sS -X POST "$API/runs/$R1/execute" -o /dev/null
 4. `POST /runs/compare` con `run_id_a` y `run_id_b` (los dos UUID) — debe devolver `aligned.labels` y conteos.
 
 Si `POST /compare` responde **405 Method Not Allowed**, el binario o el proceso en el puerto 8000 **no** corresponde al código actual: reinicia la API o libera el puerto.
+
+## Flujo mínimo GHZ (Fase F)
+
+Misma API que Bell: `template_id=ghz-state` y `parameters.num_qubits` (p. ej. 3). Tras **dos** runs ejecutados:
+
+1. `GET /runs/lab?template_id=ghz-state&limit=5` — entradas con `result` e histograma.
+2. `POST /runs/compare` con los dos `id` de run — `aligned` une etiquetas (p. ej. `000`/`111` para n=3) aunque los conteos difieran.
+
+Ejemplo de creación (mismo esquema que Bell, añadiendo `parameters`):
+
+```bash
+R1=$(curl -sS -X POST "$API/runs" -H 'Content-Type: application/json' \
+  -d '{"template_id":"ghz-state","backend":"local_simulator","shots":256,"parameters":{"num_qubits":3}}' \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+curl -sS -X POST "$API/runs/$R1/execute" -o /dev/null
+```
+
+Repite para `R2` y luego `POST /runs/compare` con `R1` y `R2`. La UI en **`/experiments/ghz-state`** reutiliza historial y compare como el lab de Bell.

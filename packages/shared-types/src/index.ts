@@ -1,4 +1,7 @@
-/** Product-grade API contracts (manual DTOs; Option A in architecture blueprint). */
+/**
+ * Product-grade API contracts (manual DTOs; Option A in architecture blueprint).
+ * Domain lifecycle, run states, and metrics/artifacts for comparison: `docs/domain/experiment-lifecycle.md` (repo root).
+ */
 
 export type ComplexityLevel = "intro" | "intermediate" | "advanced";
 
@@ -79,4 +82,30 @@ export type ResultDTO = {
 export type HealthResponse = {
   status: string;
   service: string;
+};
+
+/** `GET /runs/lab?template_id=` — completed runs with histograms. */
+export type RunWithResultDTO = {
+  run: RunDTO;
+  result: ResultDTO;
+};
+
+export type AlignedDistributionsCompareDTO = {
+  labels: string[];
+  counts_a: number[];
+  counts_b: number[];
+  shots_a: number;
+  shots_b: number;
+  prob_a: number[];
+  prob_b: number[];
+};
+
+export type RunCompareResponseDTO = {
+  run_a: RunDTO;
+  run_b: RunDTO;
+  result_a: ResultDTO;
+  result_b: ResultDTO;
+  aligned: AlignedDistributionsCompareDTO;
+  shots_delta: number;
+  created_delta_ms: number | null;
 };

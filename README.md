@@ -48,7 +48,7 @@ Terminal 2 — web (`http://localhost:3000`):
 npm run dev
 ```
 
-Open the home page to confirm API health, then **Open Bell lab** (or **Experiments** for the full catalog). **End-to-end execution** (Qiskit local simulator, workspace + `POST /runs/{id}/execute`) is wired for **Bell** and **GHZ** only. **QAOA** and **VQE** are listed in the API catalog but have **no executor** yet; running them returns *execution not implemented* (HTTP 501). For **Bell**, the lab view includes a **circuit diagram**, **histogram**, **run history with checkboxes**, and **`POST /runs/compare`** for two completed runs (same template). Optional 2D Bloch preview and further polish (3D Bloch, etc.) follow `roadmap_mvp.md`. Completed runs appear under **Historial** (`/runs`) when Postgres is available.
+Open the home page to confirm API health, then **Open Bell lab** (or **Experiments** for the full catalog). **End-to-end execution** (Qiskit local simulator, workspace + `POST /runs/{id}/execute`) is wired for **Bell** and **GHZ** only. **QAOA** and **VQE** are listed in the API catalog but have **no executor** yet; running them returns *execution not implemented* (HTTP 501). For **Bell**, the lab view includes a **circuit diagram**, **histogram**, **run history with checkboxes**, and **`POST /runs/compare`** for two completed runs (same template). **GHZ** uses the same lab pattern and shared UI pieces (`/experiments/ghz-state`); the circuit diagram is GHZ-specific (H on q0 + CNOTs en cadena) and the Bloch 2D preview is omitted. Optional 2D Bloch preview and further polish (3D Bloch, etc.) follow `roadmap_mvp.md`. Completed runs appear under **Historial** (`/runs`) when Postgres is available.
 
 ## Tutoriales (español, LaTeX)
 
@@ -81,7 +81,7 @@ If `8000` or `3000` are already in use on the host, change the port mappings in 
 | `packages/shared-types` | Shared TypeScript DTOs |
 | `docs/domain` | PRD, architecture, long-term roadmap (vision) |
 | `docs/domain/experiment-lifecycle.md` | Run/Result lifecycle, `template_id` vs slug, metrics for comparison, **§7** compare/lab JSON + OpenAPI |
-| `docs/VERIFY_BELL_MVP.md` | Comprobación manual de endpoints Bell tras reiniciar la API |
+| `docs/VERIFY_BELL_MVP.md` | Comprobación manual de endpoints lab (Bell y GHZ) tras reiniciar la API |
 | `docs/tutoriales.md` | Map of didactic content; live pages under `/learn` |
 
 Product and execution boundaries are defined in [`docs/domain/architecture.md`](docs/domain/architecture.md).

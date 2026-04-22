@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HomeLearnPanel } from "@/components/learn/HomeLearnPanel";
 import { fetchHealth } from "@/lib/api";
 
 export default async function Home() {
@@ -22,8 +23,13 @@ export default async function Home() {
           Design, run, and read real quantum experiments.
         </h1>
         <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-          Template-driven Bell, GHZ, QAOA, and VQE flows with a split Next.js + FastAPI +
-          Qiskit stack — reproducible runs and comparisons as the product grows.
+          <strong className="text-foreground/90">Bell state</strong> is the current lab focus: one
+          screen to run, read the histogram, and compare runs. GHZ is available as a secondary
+          path. QAOA and VQE are on the roadmap; the active execution plan is{" "}
+          <code className="text-sm font-mono align-baseline bg-zinc-200/80 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
+            roadmap_mvp.md
+          </code>{" "}
+          (Fase D: wireframe + compare).
         </p>
       </div>
 
@@ -38,18 +44,20 @@ export default async function Home() {
         {healthLabel}
       </div>
 
+      <HomeLearnPanel />
+
       <div className="flex flex-wrap gap-4">
         <Link
-          href="/experiments"
-          className="inline-flex items-center justify-center rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90 transition-opacity"
+          href="/experiments/bell-state"
+          className="inline-flex items-center justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-cyan-500 transition-colors"
         >
-          Open experiment catalog
+          Open Bell lab
         </Link>
         <Link
-          href="/experiments/bell-state"
-          className="inline-flex items-center justify-center rounded-lg border border-zinc-300 dark:border-zinc-600 px-5 py-2.5 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+          href="/experiments"
+          className="inline-flex items-center justify-center rounded-lg border border-zinc-300 dark:border-zinc-600 bg-background px-5 py-2.5 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
         >
-          Jump to Bell state
+          Full experiment catalog
         </Link>
         <Link
           href="/learn/fundamentos"

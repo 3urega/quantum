@@ -1,3 +1,5 @@
+"""Pydantic models aligned with DTOs in `packages/shared-types` and `docs/domain/experiment-lifecycle.md`."""
+
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
@@ -82,3 +84,39 @@ class ResultResponse(BaseModel):
 class HealthResponse(BaseModel):
     status: str
     service: str
+
+
+class RunWithResultItem(BaseModel):
+    """One completed run and its stored result (lab / history with histogram)."""
+
+    run: RunResponse
+    result: ResultResponse
+
+
+class RunCompareRequest(BaseModel):
+    run_id_a: str = Field(..., description="First completed run (UUID).")
+    run_id_b: str = Field(..., description="Second completed run (UUID).")
+
+
+class AlignedDistributionsCompare(BaseModel):
+    labels: list[str]
+    counts_a: list[int]
+    counts_b: list[int]
+    shots_a: int
+    shots_b: int
+    """Probabilities p(label) = count/shots for quick UI."""
+
+    prob_a: list[float]
+    prob_b: list[float]
+
+
+class RunCompareResponse(BaseModel):
+    run_a: RunResponse
+    run_b: RunResponse
+    result_a: ResultResponse
+    result_b: ResultResponse
+    aligned: AlignedDistributionsCompare
+    shots_delta: int
+    created_delta_ms: float | None = Field(
+        default=None, description="run_b.created_at - run_a.created_at in ms (chronological order)"
+    )

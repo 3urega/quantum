@@ -1,10 +1,28 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import health, runs, templates
 from app.core.config import settings
 
-app = FastAPI(title="Quantum Ops Lab API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    from app.infrastructure.persistence.base import Base
+    from app.infrastructure.persistence.database import engine
+
+    import app.infrastructure.persistence.models  # noqa: F401 - register ORM tables
+
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
+app = FastAPI(
+    title="Quantum Ops Lab API",
+    version="0.1.0",
+    lifespan=lifespan,
+)
 
 app.add_middleware(
     CORSMiddleware,

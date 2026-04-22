@@ -1,4 +1,21 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: quantum
+      POSTGRES_PASSWORD: quantum
+      POSTGRES_DB: quantum_ops
+    ports:
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
+    volumes:
+      - quantum_ops_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quantum -d quantum_ops"]
+      interval: 3s
+      timeout: 5s
+      retries: 8
+      start_period: 5s
+
   quantum-api:
     build:
       context: .
@@ -7,6 +24,10 @@ services:
       - "8000:8000"
     environment:
       QUANTUM_API_CORS_ORIGINS: "${QUANTUM_API_CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}"
+      QUANTUM_API_DATABASE_URL: "${QUANTUM_API_DATABASE_URL:-postgresql+psycopg://quantum:quantum@postgres:5432/quantum_ops}"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   web:
     build:
@@ -14,7 +35,13 @@ services:
       dockerfile: infrastructure/docker/Dockerfile.web
       args:
         NEXT_PUBLIC_QUANTUM_API_URL: "${NEXT_PUBLIC_QUANTUM_API_URL:-http://127.0.0.1:8000}"
+    environment:
+      # Server-side fetches (SSR) from this container must use the API service name, not 127.0.0.1
+      QUANTUM_API_SERVER_URL: "${QUANTUM_API_SERVER_URL:-http://quantum-api:8000}"
     ports:
       - "3000:3000"
     depends_on:
       - quantum-api
+
+volumes:
+  quantum_ops_pg:
