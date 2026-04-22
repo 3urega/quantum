@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      QUANTUM_API_CORS_ORIGINS: "${QUANTUM_API_CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}"
+      QUANTUM_API_CORS_ORIGINS: "${QUANTUM_API_CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000,https://localhost,http://localhost,capacitor://localhost,ionic://localhost}"
       QUANTUM_API_DATABASE_URL: "${QUANTUM_API_DATABASE_URL:-postgresql+psycopg://quantum:quantum@postgres:5432/quantum_ops}"
     depends_on:
       postgres:

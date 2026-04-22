@@ -6,7 +6,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="QUANTUM_API_")
 
-    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    cors_origins: str = (
+        "http://localhost:3000,http://127.0.0.1:3000,"
+        "https://localhost,http://localhost,capacitor://localhost,ionic://localhost"
+    )
     database_url: str = Field(
         default="postgresql+psycopg://quantum:quantum@127.0.0.1:5432/quantum_ops",
         validation_alias=AliasChoices(
