@@ -19,7 +19,7 @@ Si abres en el navegador la URL del **API** esperando el front, o configuras el 
 
 ## 2. Monorepo en Railway: contexto del Docker, workspaces, Railpack
 
-- **Error** `... "/apps/quantum-api/app": not found` al construir: **Root directory** = `apps/quantum-api` con un Dockerfile que hace `COPY apps/quantum-api/...` (contexto = raíz). **O** pones *root* vacío y [`infrastructure/docker/Dockerfile.quantum-api`](infrastructure/docker/Dockerfile.quantum-api), **o** mantienes `apps/quantum-api` y usas [`apps/quantum-api/Dockerfile`](apps/quantum-api/Dockerfile). [Detalle en docs](docs/railway-quantum-api.md).
+- **Error** `... "/apps/quantum-api/app"` o "requirements.txt not found": ocurre al mezclar **contexto = `apps/quantum-api`** con un Dockerfile que hace `COPY apps/quantum-api/...` (el de *infra*). Causa típica: el [`railway.json`](railway.json) fijaba `dockerfilePath` a `infrastructure/docker/...` y **pisaba** el [`apps/quantum-api/Dockerfile`](apps/quantum-api/Dockerfile). **Ya** no fijamos esa ruta en el JSON; con root `apps/quantum-api` el build usa el `Dockerfile` de esa carpeta. Con root **vacío**, en el panel indica a mano `infrastructure/docker/Dockerfile.quantum-api`. [Detalle en docs](docs/railway-quantum-api.md).
 - **Ruta `apps/web` sola** como *root directory* sin copiar el repo entero: `npm install` no resuelve paquetes workspace (`@quantum-ops/shared-types`, etc.) → **404 de registry / build roto**.
 
 **Desde el inicio:**
