@@ -10,6 +10,9 @@ engine = create_engine(
     pool_pre_ping=True,
     pool_size=5,
     max_overflow=10,
+    # Evita cuelgues minutos al arranque si Postgres no existe o la URL es mala; el lifespan
+    # hace create_all: sin timeout el healthcheck de Railway ve "service unavailable" aún con la app tumbada.
+    connect_args={"connect_timeout": 10},
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -13,6 +13,7 @@
     "build": "npm run build -w @quantum-ops/web",
     "lint": "npm run lint -w @quantum-ops/web",
     "docker:build": "docker compose build",
+    "check:railway-docker": "docker build -f infrastructure/docker/Dockerfile.quantum-api -t quantum-ops:api-preflight . && docker build -f infrastructure/docker/Dockerfile.web -t quantum-ops:web-preflight --build-arg NEXT_PUBLIC_QUANTUM_API_URL=http://127.0.0.1:8000 .",
     "docker:up": "docker compose up --build",
     "docker:up:detached": "docker compose up --build -d"
   }

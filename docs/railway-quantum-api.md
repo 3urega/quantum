@@ -1,5 +1,7 @@
 # Desplegar `quantum-api` en Railway (monorepo)
 
+Antes de enchufar variables o redeploy, revisa [railway-preflight.md](railway-preflight.md) (orden, Docker local, riesgos típicos).
+
 ## Mismo repositorio, servicio `web` (Next)
 
 El [`railway.json`](../railway.json) fija *builder* Docker y *healthcheck*; **no** fija `dockerfilePath` (cada servicio o la raíz de build eligen el fichero, ver más abajo). **No** aplica al front: en el servicio **web** configura en el **dashboard** su build, por ejemplo:

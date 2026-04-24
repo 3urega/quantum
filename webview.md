@@ -2,6 +2,8 @@
 
 Guía de referencia a partir de lo ocurrido al desplegar **Next (web)**, **FastAPI (API)** y **Capacitor (Android WebView)** en Railway, con un monorepo `npm` workspaces. Sirve para futuros proyectos con el mismo patrón.
 
+**Antes de un deploy:** usa el checklist y comandos de [docs/railway-preflight.md](docs/railway-preflight.md) y, en local, `npm run check:railway-docker` (imagenes Docker con el mismo *context* que en Railway, *root* vacío en el monorepo).
+
 ---
 
 ## 1. Dos URLs, dos roles: no mezclar
