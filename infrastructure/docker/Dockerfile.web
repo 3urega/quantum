@@ -15,17 +15,25 @@ RUN npm ci
 # Build the Next.js app via the workspace script.
 RUN npm run build -w @quantum-ops/web
 
+# Next standalone is minimal: it does NOT bundle `.next/static` or `public` — without them
+# the process can fail or never serve routes; Railway's edge then returns "service unavailable".
+RUN test -f apps/web/.next/standalone/apps/web/server.js
+RUN mkdir -p apps/web/.next/standalone/apps/web/.next && \
+    cp -a apps/web/.next/static apps/web/.next/standalone/apps/web/.next/ && \
+    cp -a apps/web/public apps/web/.next/standalone/apps/web/
+
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
 EXPOSE 3000
 
-# Local Docker: probe /. Use the same port the app listens on (default 3000; Railway overwrites at runtime).
+# Match Railway deploy healthcheck (see railway.json) — liveness on /health, same as docker-compose.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=50s --retries=3 \
-  CMD sh -c 'node -e "const p=process.env.PORT||3000; const h=require(\"http\");h.get({hostname:\"127.0.0.1\",port:Number(p),path:\"/\"},(r)=>process.exit(r.statusCode===200?0:1)).on(\"error\",()=>process.exit(1));"'
+  CMD sh -c 'node -e "const p=process.env.PORT||3000; const h=require(\"http\");h.get({hostname:\"127.0.0.1\",port:Number(p),path:\"/health\"},(r)=>process.exit(r.statusCode===200?0:1)).on(\"error\",()=>process.exit(1));"'
 
 # `next start` is not supported with output: "standalone"; use the generated server.
-# Path under npm workspaces: apps/web/.next/standalone/apps/web/server.js (see Next standalone trace).
+# Monorepo trace root: apps/web/.next/standalone/apps/web/server.js
+# CWD = repo root: Next resolves standalone paths the same as local `next start` from the traced layout.
 # Do not prefix PORT= here; the server reads process.env.PORT (Railway injects it).
 CMD ["node", "apps/web/.next/standalone/apps/web/server.js"]
