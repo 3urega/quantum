@@ -1,8 +1,18 @@
 # Desplegar `quantum-api` en Railway (monorepo)
 
+## Mismo repositorio, servicio `web` (Next)
+
+El [`railway.json`](../railway.json) de la raíz fija el **build del API** (Dockerfile del Python). **No** aplica al front: en el servicio **web** del mismo proyecto, en el **dashboard** de Railway configura su **build** por separado, por ejemplo:
+
+- **Builder:** Docker  
+- **Ruta al Dockerfile:** `infrastructure/docker/Dockerfile.web`  
+- **Contexto / root del repo:** raíz del monorepo (sin fijar solo `apps/web`, porque el `COPY` del Dockerfile parte de la raíz).
+
+Así se evita que un servicio herede el Dockerfile del API o que Railpack mezcle Node y Python de forma imprevista.
+
 ## Qué pasa: Railpack elige npm
 
-En la **raíz** del repo hay un `package.json` (workspaces de npm). **Railpack** (builder por defecto) infiere **Node/npm** aunque pongas *Root directory* en `apps/quantum-api`, y falla o ignora el stack Python.
+En la **raíz** del repo hay un `package.json` (workspaces de npm). **Railpack** (builder por defecto) infiere **Node/npm** aunque pongas *Root directory* en `apps/quantum-api`, y falla o ignora el stack Python. Si aun así usas **Railpack** para el API, añadimos un arranque explícito en [`apps/quantum-api/nixpacks.toml`](../apps/quantum-api/nixpacks.toml) para escuchar en `0.0.0.0` y en `$PORT`.
 
 El API es **Python + FastAPI**; el “simulador” (Qiskit Aer) vive en este mismo servicio, no en el front.
 
@@ -13,9 +23,9 @@ Ya existe un Dockerfile pensado para monorepo: [`infrastructure/docker/Dockerfil
 1. **Root directory (en Railway):** déjalo **vacío** o la raíz del monorepo — **no** uses solo `apps/quantum-api` como raíz, o los `COPY` del Dockerfile fallan.
 2. **Builder:** **Dockerfile** (no Railpack).
 3. **Ruta del Dockerfile:** `infrastructure/docker/Dockerfile.quantum-api`  
-   - En el dashboard del servicio, o usando [`railway.json`](../railway.json) en la raíz (este repo ya fija `dockerfilePath` y `healthcheckPath`).
+   - En el dashboard del servicio, o usando [`railway.json`](../railway.json) en la raíz (`dockerfilePath` y `healthcheckPath`).
 
-`railway.json` aplica a **este** despliegue; si conectas el mismo repo a **otro** servicio (p. ej. web Next), configura allí un builder distinto o usa otro proyecto / overrides en el dashboard.
+`railway.json` describe el **API**; el servicio **web** debe tener builder propio en el dashboard (ver arriba).
 
 ## Variables de entorno (mínimo)
 

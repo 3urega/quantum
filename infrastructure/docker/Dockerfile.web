@@ -25,6 +25,7 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=50s --retries=3 \
   CMD sh -c 'node -e "const p=process.env.PORT||3000; const h=require(\"http\");h.get({hostname:\"127.0.0.1\",port:Number(p),path:\"/\"},(r)=>process.exit(r.statusCode===200?0:1)).on(\"error\",()=>process.exit(1));"'
 
-# Do NOT set PORT=3000 here. Railway (and other hosts) set PORT; forcing 3000 would make the app
-# listen on the wrong port and fail platform healthchecks with service unavailable.
-CMD ["npm", "start", "-w", "@quantum-ops/web"]
+# `next start` is not supported with output: "standalone"; use the generated server.
+# Path under npm workspaces: apps/web/.next/standalone/apps/web/server.js (see Next standalone trace).
+# Do not prefix PORT= here; the server reads process.env.PORT (Railway injects it).
+CMD ["node", "apps/web/.next/standalone/apps/web/server.js"]
