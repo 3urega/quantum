@@ -1,0 +1,3 @@
+# Railway / Railpack: bind 0.0.0.0 and respect $PORT. Default uvicorn binds 127.0.0.1:8000 and is unreachable from the edge.
+# Service root in Railway should be this directory (or monorepo root with correct working dir if using Dockerfile instead).
+web: sh -c "exec python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"

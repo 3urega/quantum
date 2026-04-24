@@ -21,8 +21,10 @@ ENV HOSTNAME=0.0.0.0
 
 EXPOSE 3000
 
-# Verify the homepage returns HTTP 200 before the container is marked healthy.
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+# Local Docker: probe /. Use the same port the app listens on (default 3000; Railway overwrites at runtime).
+HEALTHCHECK --interval=30s --timeout=10s --start-period=50s --retries=3 \
+  CMD sh -c 'node -e "const p=process.env.PORT||3000; const h=require(\"http\");h.get({hostname:\"127.0.0.1\",port:Number(p),path:\"/\"},(r)=>process.exit(r.statusCode===200?0:1)).on(\"error\",()=>process.exit(1));"'
 
-CMD PORT=3000 npm start -w @quantum-ops/web
+# Do NOT set PORT=3000 here. Railway (and other hosts) set PORT; forcing 3000 would make the app
+# listen on the wrong port and fail platform healthchecks with service unavailable.
+CMD ["npm", "start", "-w", "@quantum-ops/web"]
