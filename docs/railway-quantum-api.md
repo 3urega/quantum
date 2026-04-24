@@ -16,16 +16,26 @@ En la **raíz** del repo hay un `package.json` (workspaces de npm). **Railpack**
 
 El API es **Python + FastAPI**; el “simulador” (Qiskit Aer) vive en este mismo servicio, no en el front.
 
+## Error típico: `failed to calculate checksum: "/apps/quantum-api/app": not found`
+
+Eso pasa si en el servicio **quantum** configuraste **Root directory = `apps/quantum-api`** pero dejaste el Dockerfile de **infra** ([`infrastructure/docker/Dockerfile.quantum-api`](../infrastructure/docker/Dockerfile.quantum-api)). Ese Dockerfile hace `COPY apps/quantum-api/app` y solo es válido cuando el **contexto** es la **raíz del repo**; con contexto = subcarpeta, esa ruta no existe en el empaquetado.
+
+**Tienes dos formas de arreglarlo (elige una):**
+
+| Enfoque | Root directory (Railway) | Ruta al Dockerfile |
+|--------|-------------------------|--------------------|
+| **A (recomendada)** | **Vacío** (raíz del monorepo) | `infrastructure/docker/Dockerfile.quantum-api` (coherente con [`railway.json`](../railway.json)) |
+| **B** | `apps/quantum-api` | [`apps/quantum-api/Dockerfile`](../apps/quantum-api/Dockerfile) (build solo sobre esa carpeta) |
+
 ## Solución recomendada: build con Dockerfile (contexto = raíz)
 
-Ya existe un Dockerfile pensado para monorepo: [`infrastructure/docker/Dockerfile.quantum-api`](../infrastructure/docker/Dockerfile.quantum-api) (hace `COPY apps/quantum-api/...` desde la **raíz** del repositorio).
+El Dockerfile de infra: [`infrastructure/docker/Dockerfile.quantum-api`](../infrastructure/docker/Dockerfile.quantum-api) (hace `COPY apps/quantum-api/...` desde la **raíz** del repositorio).
 
-1. **Root directory (en Railway):** déjalo **vacío** o la raíz del monorepo — **no** uses solo `apps/quantum-api` como raíz, o los `COPY` del Dockerfile fallan.
-2. **Builder:** **Dockerfile** (no Railpack).
-3. **Ruta del Dockerfile:** `infrastructure/docker/Dockerfile.quantum-api`  
-   - En el dashboard del servicio, o usando [`railway.json`](../railway.json) en la raíz (`dockerfilePath` y `healthcheckPath`).
+1. **Root directory (en Railway):** **vacío** = raíz del monorepo (no fijar `apps/quantum-api` salvo que uses el Dockerfile B de la tabla de arriba).
+2. **Builder:** **Dockerfile** (no Railpack) para imágenes reproducibles.
+3. **Ruta del Dockerfile:** `infrastructure/docker/Dockerfile.quantum-api` (o vía [`railway.json`](../railway.json)).
 
-`railway.json` describe el **API**; el servicio **web** debe tener builder propio en el dashboard (ver arriba).
+`railway.json` en la raíz describe el build del **API**; el servicio **web** debe declarar en el panel su **propio** Dockerfile (ver inicio de este doc).
 
 ## Variables de entorno (mínimo)
 

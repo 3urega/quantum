@@ -17,8 +17,9 @@ Si abres en el navegador la URL del **API** esperando el front, o configuras el 
 
 ---
 
-## 2. Monorepo en Railway: contexto y workspaces
+## 2. Monorepo en Railway: contexto del Docker, workspaces, Railpack
 
+- **Error** `... "/apps/quantum-api/app": not found` al construir: **Root directory** = `apps/quantum-api` con un Dockerfile que hace `COPY apps/quantum-api/...` (contexto = raíz). **O** pones *root* vacío y [`infrastructure/docker/Dockerfile.quantum-api`](infrastructure/docker/Dockerfile.quantum-api), **o** mantienes `apps/quantum-api` y usas [`apps/quantum-api/Dockerfile`](apps/quantum-api/Dockerfile). [Detalle en docs](docs/railway-quantum-api.md).
 - **Ruta `apps/web` sola** como *root directory* sin copiar el repo entero: `npm install` no resuelve paquetes workspace (`@quantum-ops/shared-types`, etc.) → **404 de registry / build roto**.
 
 **Desde el inicio:**
@@ -119,7 +120,7 @@ Incluir también orígenes de **Capacitor** si pruebas empaquetado (`https://loc
 ## Archivos de referencia en este repo
 
 - Front Docker: [infrastructure/docker/Dockerfile.web](infrastructure/docker/Dockerfile.web)
-- API Docker / health API: [infrastructure/docker/Dockerfile.quantum-api](infrastructure/docker/Dockerfile.quantum-api), [apps/quantum-api/Procfile](apps/quantum-api/Procfile) (si el servicio API usa Railpack con *root* `apps/quantum-api`), [railway.json](railway.json)
+- API Docker: [infrastructure/docker/Dockerfile.quantum-api](infrastructure/docker/Dockerfile.quantum-api) (contexto monorepo), [apps/quantum-api/Dockerfile](apps/quantum-api/Dockerfile) (contexto `apps/quantum-api`); [apps/quantum-api/Procfile](apps/quantum-api/Procfile); [railway.json](railway.json)
 - CORS: [apps/quantum-api/app/core/config.py](apps/quantum-api/app/core/config.py)
 - Base URL de fetch: [apps/web/src/lib/api.ts](apps/web/src/lib/api.ts)
 - Health del **web** (probe Railway): [apps/web/src/app/health/route.ts](apps/web/src/app/health/route.ts)
