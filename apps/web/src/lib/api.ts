@@ -7,19 +7,9 @@ import type {
   TemplateDTO,
 } from "@quantum-ops/shared-types";
 
-/**
- * Base URL of the FastAPI service.
- * - In the **browser**: `NEXT_PUBLIC_QUANTUM_API_URL` (host loopback, e.g. 127.0.0.1:8000).
- * - In **Node** (RSC, Route Handlers): optional `QUANTUM_API_SERVER_URL` so Docker SSR can
- *   call the API by compose service name (`http://quantum-api:8000`); 127.0.0.1 would point at
- *   the web container itself, causing `fetch failed`.
- */
-export function getApiBase(): string {
-  if (typeof window === "undefined" && process.env.QUANTUM_API_SERVER_URL) {
-    return process.env.QUANTUM_API_SERVER_URL;
-  }
-  return process.env.NEXT_PUBLIC_QUANTUM_API_URL ?? "http://127.0.0.1:8000";
-}
+import { getApiBase } from "./api-base";
+
+export { getApiBase } from "./api-base";
 
 async function parseJson<T>(res: Response): Promise<T> {
   if (!res.ok) {
