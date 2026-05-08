@@ -1,4 +1,4 @@
-package com.eurega.quantumops;
+package com.quantumops.app;
 
 import com.getcapacitor.BridgeActivity;
 

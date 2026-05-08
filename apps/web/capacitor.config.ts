@@ -69,7 +69,7 @@ function navigationAllowlist(): string[] {
 const navAllow = serverUrl ? navigationAllowlist() : [];
 
 const config: CapacitorConfig = {
-  appId: "com.eurega.quantumops",
+  appId: "com.quantumops.app",
   appName: "Quantum Ops",
   webDir: "www",
   ...(serverUrl

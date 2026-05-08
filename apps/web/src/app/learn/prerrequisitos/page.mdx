@@ -1,8 +1,66 @@
 # 0. Prerrequisitos matemáticos
 
-> Objetivo: refrescar el lenguaje sin un curso completo. Lo demás del currículo usa sin explicar de nuevo estos bloques.
+> Objetivo: refrescar el lenguaje sin sustituir un curso de álgebra lineal. Aquí se da **intuición física** y las definiciones que el currículo usa después sin repetir. Lo demás del índice asume estos bloques.
+>
+> Con **modo aprendizaje** activo en la cabecera aparecen recuadros violetas con **demostraciones y desarrollos extra** (p. ej. Euler desde series de Taylor).
 
-## 0.1 Números complejos
+## 0.1 Bit clásico versus estado cuántico como vector
+
+En computación **clásica**, un bit es un valor bien definido: $0$ o $1$.
+
+En computación **cuántica**, el objeto básico no es “ya $0$ o ya $1$”, sino una **combinación coherente de ambas posibilidades**. Para manipular eso con rigor (superposición, interferencia, evolución y medición), lo representamos como un **vector con componentes complejas**. El formalismo lineal no es decoración: es la forma compacta de describir esas reglas.
+
+## 0.2 El espacio $\mathbb{C}^d$
+
+$\mathbb{C}^d$ es el conjunto de **vectores columna de dimensión $d$** cuyas entradas son números complejos. Un elemento típico:
+
+$$
+\mathbf{v} =
+\begin{pmatrix}
+v_1 \\ v_2 \\ \vdots \\ v_d
+\end{pmatrix},
+\qquad v_j \in \mathbb{C}.
+$$
+
+En mecánica cuántica finita-dimensional, un estado puro será tal vector sujeto a una condición de **normalización** ($\lVert \mathbf{v}\rVert = 1$, más abajo).
+
+## 0.3 Un qubit: base computacional
+
+Un qubit tiene dos estados de referencia (base computacional):
+
+$$
+\lvert 0 \rangle =
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix},
+\qquad
+\lvert 1 \rangle =
+\begin{pmatrix}
+0 \\ 1
+\end{pmatrix}.
+$$
+
+Cualquier estado de un solo qubit se escribe como combinación lineal
+
+$$
+\lvert \psi \rangle = \alpha \lvert 0 \rangle + \beta \lvert 1 \rangle,
+\qquad \alpha,\beta \in \mathbb{C},
+$$
+
+En forma de columna:
+
+$$
+\lvert \psi \rangle =
+\begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix}.
+$$
+
+La interpretación probabilística ($\lvert \alpha \rvert^2$, $\lvert \beta \rvert^2$) y las sutilezas de **fase global / relativa** se desarrollan en [2 · Qubits](/learn/qubits); aquí solo fijamos la foto vectorial.
+
+## 0.4 Números complejos (refresco) y por qué aparecen
+
+Sin números complejos pierdes herramientas esenciales del formalismo: **fases** que permiten interferencia constructiva y destructiva, oscilaciones coherentes y una evolución temporal descrita por operadores **unitarios** (rotaciones generalizadas que preservan normas). La parte “operativa” del refresco:
 
 Un complejo $z = a + ib$ con $a,b \in \mathbb{R}$ tiene **conjugado** $\bar z = a - ib$ y **módulo** $|z| = \sqrt{a^2+b^2} = \sqrt{z\bar z}$.
 
@@ -16,19 +74,219 @@ $$
 
 *Mini ejemplo:* $e^{i\pi/2} = i$, $e^{i\pi} = -1$.
 
-## 0.2 Álgebra lineal en $\mathbb{C}^n$
+<LearnModeExtra title="Euler: serie de Maclaurin de la exponencial y de coseno y seno">
 
-Los **estados** de $n$ niveles son vectores columna en $\mathbb{C}^d$ (con $d=2^n$ para $n$ qubits). El **producto escalar** (interno) usual es
+### Serie exponencial (real)
+
+Para $x \in \mathbb{R}$, la función exponencial es analítica y
 
 $$
-\langle u \vert v \rangle = \sum_j \overline{u_j}\, v_j,
+e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
 $$
 
-y la **norma** $\lVert v \rVert = \sqrt{\langle v \vert v \rangle}$.
+En análisis complejo se **define** $e^z$ para $z \in \mathbb{C}$ con la misma serie (radio de convergencia infinito). Esa definición hace que $e^z$ sea holomorfa y coincida con la exponencial real en $\mathbb{R}$.
 
-Una **base ortonormal** $\{e_j\}$ cumple $\langle e_i \vert e_j \rangle = \delta_{ij}$.
+### Sustituir $z = i\theta$ con $\theta \in \mathbb{R}$
 
-## 0.3 Autovalores (uso mínimo)
+$$
+e^{i\theta} = \sum_{n=0}^{\infty} \frac{(i\theta)^n}{n!}.
+$$
+
+Las potencias de $i$ se repiten de cuatro en cuatro: $i^0 = 1$, $i^1 = i$, $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, etc. Por tanto:
+
+- si $n = 2k$ es **par**, $(i\theta)^{2k} = i^{2k}\theta^{2k} = (-1)^k \theta^{2k}$;
+- si $n = 2k+1$ es **impar**, $(i\theta)^{2k+1} = i\cdot(-1)^k \theta^{2k+1}$.
+
+Separando parte **real** (términos pares) e **imaginaria** (impares, todas llevan factor $i$):
+
+$$
+e^{i\theta}
+  = \sum_{k=0}^{\infty} \frac{(-1)^k \theta^{2k}}{(2k)!}
+  + i \sum_{k=0}^{\infty} \frac{(-1)^k \theta^{2k+1}}{(2k+1)!}.
+$$
+
+### Identificación con coseno y seno
+
+Las series de Maclaurin clásicas son precisamente
+
+$$
+\cos\theta = \sum_{k=0}^{\infty} (-1)^k \frac{\theta^{2k}}{(2k)!},
+\qquad
+\sin\theta = \sum_{k=0}^{\infty} (-1)^k \frac{\theta^{2k+1}}{(2k+1)!}.
+$$
+
+Sustituyendo arriba queda la **fórmula de Euler**:
+
+$$
+e^{i\theta} = \cos\theta + i\sin\theta.
+$$
+
+Así el vínculo entre **oscilaciones** ($\cos$, $\sin$) y **fases complejas** ($e^{i\theta}$) no es una “regla mágica”: sale de la serie de $e^z$ y del comportamiento cíclico de las potencias de $i$.
+
+</LearnModeExtra>
+
+## 0.5 Dimensión $d = 2^n$ para $n$ qubits
+
+Cada qubit añade un factor $2$ al número de configuraciones clásicas posibles en la base computacional: hay $2^n$ cadenas de bits de longitud $n$, y el espacio de estados puros tiene dimensión $d = 2^n$.
+
+**Un qubit:** $d = 2$, base $\{\lvert 0 \rangle,\lvert 1 \rangle\}$.
+
+**Dos qubits:** $d = 4$, base
+
+$$
+\lvert 00 \rangle,\quad \lvert 01 \rangle,\quad \lvert 10 \rangle,\quad \lvert 11 \rangle,
+$$
+
+y un estado general se escribe como columna de cuatro amplitudes:
+
+$$
+\lvert \psi \rangle =
+\begin{pmatrix}
+\alpha_{00} \\ \alpha_{01} \\ \alpha_{10} \\ \alpha_{11}
+\end{pmatrix},
+\qquad \alpha_{jk} \in \mathbb{C}.
+$$
+
+**$n$ qubits:** $d = 2^n$ porque hay $2^n$ índices binarios; el producto tensorial formal aparece cuando enlaces con circuitos multiqubit en [4 · Circuitos](/learn/circuitos).
+
+## 0.6 Producto escalar (interno)
+
+El **producto interno** entre dos vectores $u = (u_1,\ldots,u_d)^\top$ y $v = (v_1,\ldots,v_d)^\top$ en $\mathbb{C}^d$ es
+
+$$
+\langle u \vert v \rangle = \sum_{j=1}^d \overline{u_j}\, v_j.
+$$
+
+Es la generalización natural del producto punto, pero exigiendo **conjugación en la primera entrada** para que cantidades como $\langle v \vert v \rangle$ sean siempre **reales y no negativas**:
+
+$$
+\langle v \vert v \rangle = \sum_j \overline{v_j}\, v_j = \sum_j \lvert v_j \rvert^2 \geq 0.
+$$
+
+### Ejemplo numérico
+
+Sean
+
+$$
+u =
+\begin{pmatrix}
+1+i \\ 2
+\end{pmatrix},
+\qquad
+v =
+\begin{pmatrix}
+3 \\ i
+\end{pmatrix}.
+$$
+
+Entonces $\overline{1+i} = 1-i$ y
+
+$$
+\langle u \vert v \rangle = (1-i)\cdot 3 + 2\cdot i = 3 - 3i + 2i = 3 - i.
+$$
+
+<LearnModeExtra title="Producto interno: por qué el conjugado y sesquilinealidad">
+
+### Sesquilinealidad
+
+La aplicación $(u,v) \mapsto \langle u \vert v \rangle$ es **lineal en la segunda variable** y **antilineal en la primera**: si $\alpha \in \mathbb{C}$,
+
+$$
+\langle u \vert \alpha v_1 + \beta v_2 \rangle = \alpha \langle u \vert v_1 \rangle + \beta \langle u \vert v_2 \rangle,
+$$
+
+$$
+\langle \alpha u_1 + \beta u_2 \vert v \rangle = \bar\alpha \langle u_1 \vert v \rangle + \bar\beta \langle u_2 \vert v \rangle.
+$$
+
+La segunda identidad es exactamente la que impone el conjugado en las componentes de la “bra” $\langle u \vert$.
+
+### $\langle v \vert v \rangle$ es real y $\geq 0$
+
+Para $v = (v_1,\ldots,v_d)^\top$,
+
+$$
+\langle v \vert v \rangle = \sum_{j=1}^d \overline{v_j}\, v_j = \sum_{j=1}^d \lvert v_j \rvert^2.
+$$
+
+Cada término $\lvert v_j \rvert^2$ es real y no negativo, así que la suma es **real** y **$\geq 0$**. Además $\langle v \vert v \rangle = 0$ si y solo si $v = 0$. Por eso $\lVert v \rVert = \sqrt{\langle v \vert v \rangle}$ es una norma genuina.
+
+### Simetría conjugada
+
+Para cualesquiera $u,v$,
+
+$$
+\langle v \vert u \rangle = \overline{\langle u \vert v \rangle},
+$$
+
+porque $\overline{\sum_j \overline{u_j} v_j} = \sum_j u_j \overline{v_j}$.
+
+### Ortogonalidad y Pitágoras (dos vectores)
+
+Si $\langle u \vert v \rangle = 0$ y escribes $w = u + v$, entonces (expandiendo el cuadrado de norma)
+
+$$
+\lVert u + v \rVert^2 = \lVert u \rVert^2 + \lVert v \rVert^2,
+$$
+
+porque los términos cruzados $\langle u \vert v \rangle$ y $\langle v \vert u \rangle$ son cero. Es el analog complejo del teorema de Pitágoras en geometría euclídea.
+
+</LearnModeExtra>
+
+## 0.7 Norma, normalización y solapamiento
+
+La **norma** inducida por el producto interno es
+
+$$
+\lVert v \rVert = \sqrt{\langle v \vert v \rangle}.
+$$
+
+Los **estados físicos** se representan por vectores **normalizados**, $\lVert \psi \rVert = 1$. Para un qubit $\alpha \lvert 0 \rangle + \beta \lvert 1 \rangle$, eso equivale a
+
+$$
+\lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1:
+$$
+
+la probabilidad total asociada a los dos resultados distingibles en esa base es $1$ (conecta con la regla de Born en [Fundamentos](/learn/fundamentos) y [6 · Medición](/learn/medicion)).
+
+**Interpretación:** $\langle u \vert v \rangle$ mide el **solapamiento** entre dos estados. Si $\langle u \vert v \rangle = 0$, son **ortogonales**: perfectamente distinguibles en una medida ideal que los separe. Si ambos están normalizados y $\lvert \langle u \vert v \rangle \rvert = 1$, describen el **mismo estado físico** salvo una **fase global** multiplicativa (esa fase no altera probabilidades de la base computacional).
+
+## 0.8 Base ortonormal y delta de Kronecker
+
+Un conjunto $\{e_j\}_{j=1}^d$ es una **base ortonormal** si
+
+$$
+\langle e_i \vert e_j \rangle = \delta_{ij},
+$$
+
+donde la **delta de Kronecker** es
+
+$$
+\delta_{ij} =
+\begin{cases}
+1 & \text{si } i = j, \\
+0 & \text{si } i \neq j.
+\end{cases}
+$$
+
+En palabras: vectores **distintos** son ortogonales ($\langle e_i \vert e_j \rangle = 0$ si $i \neq j$) y cada uno tiene **norma $1$** ($\langle e_j \vert e_j \rangle = 1$).
+
+En la base computacional de un qubit,
+
+$$
+\langle 0 \vert 1 \rangle = 0,\qquad
+\langle 0 \vert 0 \rangle = \langle 1 \vert 1 \rangle = 1.
+$$
+
+## 0.9 Hilera conceptual
+
+En computación cuántica finita-dimensional suele ayudar este mapa mental:
+
+**estado** $\rightarrow$ **vector complejo normalizado** $\rightarrow$ **producto interno** (solapamientos) $\rightarrow$ **probabilidades** vía $\lvert \langle \cdot \vert \psi \rangle \rvert^2$ $\rightarrow$ **medición**. Las **puertas** actúan como transformaciones lineales que preservan normas (unitarias), es decir, como “rotaciones” en geometría compleja; eso lo verás operativo en [3 · Puertas](/learn/puertas).
+
+En una frase: **geometría compleja + probabilidad**.
+
+## 0.10 Autovalores (uso mínimo)
 
 Un operador $A$ admite, en buenos casos, **autovectores** $Av = \lambda v$ con **autovalor** $\lambda$. En mecánica cuántica, los observables hermíticos tienen espectro real; las **puertas** que verás en el lab suelen ser **unitarias** (autovalores de módulo 1), lo que conecta con rotaciones y conservación de norma. Detalle: capítulo [3 · Puertas](/learn/puertas#unitarias) y [1 · Postulados](/learn/postulados).
 

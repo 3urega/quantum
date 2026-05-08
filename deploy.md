@@ -68,4 +68,3 @@ Forzar la variable en el comando.
 
 Moraleja: Environment variables en Dockerfiles no siempre se heredan a los procesos hijo. A veces tienes que pasarlas explícitamente en el comando.
 
-Lección para el libro:
